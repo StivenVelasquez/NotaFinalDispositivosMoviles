@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">¿Cuál es mi nota final?</string>
+    <string name="calculate_note">Calcular Nota Final</string>
+    <string name="Calculate_note">Calculadora de Nota Final</string>
+    <string name="note_lab">Nota de Laboratorio(60%)</string>
+    <string name="first_advance">Primer Avance del Poyecto Final(7%)</string>
+    <string name="second_advance">Segundo Avance del Proyecto Final(8%)</string>
+    <string name="final_project_delivery">Entrega del Proyecto Final(25%)</string>
+    <string name="calculatenote">Calcular nota final</string>
+    <string name="final_note">Su Nota Final es:</string>
+    <string name="note_final">Nota Final</string>
+    <string name="title_activity_splash">¿Cuál es mi nota final?</string>
+</resources>
