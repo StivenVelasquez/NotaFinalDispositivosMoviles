@@ -34,43 +34,36 @@ class MainActivity : AppCompatActivity() {
         mainBinding.calculateNoteButton.setOnClickListener {
             try {
 
-                // Informar al ViewModel de los cambios en los datos
-                mainViewModel.notaLab(mainBinding.notaLabEditText.text.toString().toDouble())
-                mainViewModel.notaPrimerAvance(mainBinding.notaPrimerAvanceEditText.text.toString().toDouble())
-                mainViewModel.notaSegundoAvance(mainBinding.notaSegundoAvanceEditText.text.toString().toDouble())
-                mainViewModel.notaProyectoFinal(mainBinding.entregaProyectoFinalEditText.text.toString().toDouble())
-                mainViewModel.notaCalculada(mainBinding.noteFinalTextView.toString())
+                if(mainBinding.notaLabEditText.text.toString().toDouble()>=0.0 && mainBinding.notaLabEditText.text.toString().toDouble() <=5.0
+                    &&mainBinding.notaPrimerAvanceEditText.text.toString().toDouble()>=0.0 && mainBinding.notaPrimerAvanceEditText.text.toString().toDouble()<=5.0
+                        &&mainBinding.notaSegundoAvanceEditText.text.toString().toDouble()>=0.0 &&mainBinding.notaSegundoAvanceEditText.text.toString().toDouble()<=5.0
+                        && mainBinding.entregaProyectoFinalEditText.text.toString().toDouble()>=0.0&&mainBinding.entregaProyectoFinalEditText.text.toString().toDouble()<=5.0){
 
-                val  notaCalculadaObserver= Observer<String>{ nota ->
-                    mainBinding.noteFinalTextView.text=nota
+
+                    mainViewModel.calculateWeightedAverage(mainBinding.notaLabEditText.text.toString().toDouble(),
+                    mainBinding.notaPrimerAvanceEditText.text.toString().toDouble(), mainBinding.notaSegundoAvanceEditText.text.toString().toDouble(),
+                    mainBinding.entregaProyectoFinalEditText.text.toString().toDouble())
                 }
-                mainViewModel.notaCalculada.observe(this, notaCalculadaObserver)
-
-
-                if (mainViewModel.isValidGrade(mainBinding.notaLabEditText.text.toString().toDouble()) &&
-                    mainViewModel.isValidGrade(mainBinding.notaPrimerAvanceEditText.text.toString().toDouble()) &&
-                    mainViewModel.isValidGrade(mainBinding.notaSegundoAvanceEditText.text.toString().toDouble()) &&
-                    mainViewModel.isValidGrade(mainBinding.entregaProyectoFinalEditText.text.toString().toDouble())) {
-
-                    mainBinding.noteFinalTextView.text = String.format("%.3f", mainViewModel.calculateWeightedAverage(mainBinding.notaLabEditText.text.toString().toDouble(),
-                        mainBinding.notaPrimerAvanceEditText.text.toString().toDouble(), mainBinding.notaSegundoAvanceEditText.text.toString().toDouble(),
-                        mainBinding.entregaProyectoFinalEditText.text.toString().toDouble()))
-                } else {
-
+                else{
                     Snackbar.make(mainBinding.linearLayout, "Tiene espacios sin llenar o los datos ingresados no son válidos. Por favor verifique", Snackbar.LENGTH_INDEFINITE)
                         .setAction("Aceptar") {}
                         .show()
                          mainBinding.noteFinalTextView.text=" "
                 }
-
-            } catch (e: NumberFormatException) {
+            }
+            catch (e: NumberFormatException) {
                 Snackbar.make(mainBinding.linearLayout, "Tiene espacios sin llenar o los datos ingresados no son válidos. Por favor verifique", Snackbar.LENGTH_INDEFINITE)
                     .setAction("Aceptar") {}
                     .show()
                      mainBinding.noteFinalTextView.text=" "
-            }
+        }
+
+        val  notaCalculadaObserver= Observer<Double>{ nota ->
+            mainBinding.noteFinalTextView.text= nota.toString()
+        }
+        mainViewModel.weightedAverage.observe(this, notaCalculadaObserver)
         }
     }
 }
 
-//Termine el ejercicio
+//  Checkeo del ejercicio
