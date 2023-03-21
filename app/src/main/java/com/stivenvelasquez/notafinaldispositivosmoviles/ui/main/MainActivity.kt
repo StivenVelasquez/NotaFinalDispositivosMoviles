@@ -32,34 +32,13 @@ class MainActivity : AppCompatActivity() {
 
         //Botón de calcular la nota
         mainBinding.calculateNoteButton.setOnClickListener {
-            try {
 
-                if(mainBinding.notaLabEditText.text.toString().toDouble()>=0.0 && mainBinding.notaLabEditText.text.toString().toDouble() <=5.0
-                    &&mainBinding.notaPrimerAvanceEditText.text.toString().toDouble()>=0.0 && mainBinding.notaPrimerAvanceEditText.text.toString().toDouble()<=5.0
-                        &&mainBinding.notaSegundoAvanceEditText.text.toString().toDouble()>=0.0 &&mainBinding.notaSegundoAvanceEditText.text.toString().toDouble()<=5.0
-                        && mainBinding.entregaProyectoFinalEditText.text.toString().toDouble()>=0.0&&mainBinding.entregaProyectoFinalEditText.text.toString().toDouble()<=5.0){
+            mainViewModel.calculateWeightedAverage(mainBinding.notaLabEditText.text.toString().toDouble(),
+              mainBinding.notaPrimerAvanceEditText.text.toString().toDouble(), mainBinding.notaSegundoAvanceEditText.text.toString().toDouble(),
+                 mainBinding.entregaProyectoFinalEditText.text.toString().toDouble(), mainBinding.linearLayout)
 
-
-                    mainViewModel.calculateWeightedAverage(mainBinding.notaLabEditText.text.toString().toDouble(),
-                    mainBinding.notaPrimerAvanceEditText.text.toString().toDouble(), mainBinding.notaSegundoAvanceEditText.text.toString().toDouble(),
-                    mainBinding.entregaProyectoFinalEditText.text.toString().toDouble())
-                }
-                else{
-                    Snackbar.make(mainBinding.linearLayout, "Tiene espacios sin llenar o los datos ingresados no son válidos. Por favor verifique", Snackbar.LENGTH_INDEFINITE)
-                        .setAction("Aceptar") {}
-                        .show()
-                         mainBinding.noteFinalTextView.text=" "
-                }
-            }
-            catch (e: NumberFormatException) {
-                Snackbar.make(mainBinding.linearLayout, "Tiene espacios sin llenar o los datos ingresados no son válidos. Por favor verifique", Snackbar.LENGTH_INDEFINITE)
-                    .setAction("Aceptar") {}
-                    .show()
-                     mainBinding.noteFinalTextView.text=" "
-        }
-
-        val  notaCalculadaObserver= Observer<Double>{ nota ->
-            mainBinding.noteFinalTextView.text= nota.toString()
+        val  notaCalculadaObserver= Observer<String>{ nota ->
+            mainBinding.noteFinalTextView.text= nota
         }
         mainViewModel.weightedAverage.observe(this, notaCalculadaObserver)
         }
