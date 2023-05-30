@@ -22,6 +22,7 @@ class MainViewModel : ViewModel() {
                 && secondAdvanceGrade <= 5.0 && finalProjectGrade >= 0.0 && finalProjectGrade <= 5.0
             ) {
 
+
                 val grade =
                     labGrade * labWeight + firstAdvanceGrade * firstAdvanceWeight + secondAdvanceGrade * secondAdvanceWeight + finalProjectGrade * finalProjectWeight
                 weightedAverage.value = (String.format("%.2f", grade))
