@@ -25,7 +25,7 @@ class MainViewModel : ViewModel() {
                 val grade =
                     labGrade * labWeight + firstAdvanceGrade * firstAdvanceWeight + secondAdvanceGrade * secondAdvanceWeight + finalProjectGrade * finalProjectWeight
                 weightedAverage.value = (String.format("%.2f", grade))
-            } else {
+            } else{
                 weightedAverage.value = " "
                 Snackbar.make(
                     linearLayout,
